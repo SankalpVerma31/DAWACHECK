@@ -59,17 +59,3 @@ DawaCheck then:
 | 🗺️ **Overcharge Heatmap** | Anonymous data points can contribute to a public visualization |
 | ⚠️ **Ambiguity Detection** | Uncertain matches are surfaced instead of being silently accepted |
 
----
-
-# 🧠 The Interesting Engineering
-
-The challenging part of DawaCheck isn't simply extracting text from a bill.
-
-The real engineering challenge is:
-
-## **Salt-Level Equivalence Matching**
-
-A pharmacy bill might contain:
-
-```text
-DOLO 650 TAB 15'S
