@@ -1,0 +1,24 @@
+{
+  "name": "DawaCheck — Medicine bill checker",
+  "short_name": "DawaCheck",
+  "description": "Check any Indian pharmacy bill against NPPA legal ceiling prices and Jan Aushadhi generic prices.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f766e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%230f766e'/%3E%3Ctext x='96' y='130' font-size='104' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%82%B9%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='108' fill='%230f766e'/%3E%3Ctext x='256' y='348' font-size='280' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%82%B9%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

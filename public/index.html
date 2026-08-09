@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DawaCheck — Scan your medicine bill. Find out what you were overcharged.</title>
+  <meta name="description" content="Check any Indian pharmacy bill against NPPA legal ceiling prices and Jan Aushadhi generic prices in seconds." />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#top">
+        <span class="logo-mark">₹</span>
+        <span class="logo-text">Dawa<strong>Check</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#scan" data-i18n="navScan">Scan a bill</a>
+        <a href="#how" data-i18n="navHow">How it works</a>
+        <a href="#heatmap" data-i18n="navMap">Overcharge map</a>
+      </nav>
+      <div class="header-actions">
+        <button id="langToggle" class="btn btn-ghost" type="button" aria-label="Switch language">
+          <span id="langLabel">हिंदी</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="pill" data-i18n="heroPill">Built on public NPPA &amp; Jan Aushadhi data</span>
+        <h1 data-i18n="heroTitle">Scan your medicine bill.<br />Find out what you were overcharged.</h1>
+        <p class="lede" data-i18n="heroSub">
+          The government fixes a legal maximum price for over 900 essential medicines.
+          Charging above it is illegal. DawaCheck checks your bill line by line in five
+          seconds, shows the cheaper generic, and drafts your complaint to the NPPA.
+        </p>
+        <div class="hero-cta">
+          <a href="#scan" class="btn btn-primary btn-lg" data-i18n="heroBtn">Check my bill — free</a>
+          <a href="#how" class="btn btn-outline btn-lg" data-i18n="heroBtn2">See how it works</a>
+        </div>
+      </div>
+
+      <div class="hero-stats card">
+        <h3 data-i18n="statsTitle">Live impact</h3>
+        <div class="stat">
+          <div class="stat-value" id="statBills">0</div>
+          <div class="stat-label" data-i18n="statBills">Bills checked</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value danger" id="statOvercharge">₹0</div>
+          <div class="stat-label" data-i18n="statOver">Illegal overcharging found</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value success" id="statSavings">₹0</div>
+          <div class="stat-label" data-i18n="statSave">Savings unlocked for patients</div>
+        </div>
+        <div class="stat-foot" data-i18n="statFoot">Updating as people scan, across India</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCAN ================= -->
+  <section class="section" id="scan">
+    <div class="container">
+      <h2 class="section-title" data-i18n="scanTitle">Check a bill</h2>
+      <p class="section-sub" data-i18n="scanSub">Upload a photo, or type the lines yourself. Both work.</p>
+
+      <div class="scan-grid">
+        <div class="card upload-card">
+          <div class="tabs">
+            <button class="tab active" data-tab="photo" type="button" data-i18n="tabPhoto">📷 Photo of bill</button>
+            <button class="tab" data-tab="text" type="button" data-i18n="tabText">⌨️ Type it in</button>
+          </div>
+
+          <div class="tab-panel active" id="panel-photo">
+            <label class="dropzone" id="dropzone" for="fileInput">
+              <div class="dz-icon">🧾</div>
+              <div class="dz-title" data-i18n="dzTitle">Tap to upload or drag your bill here</div>
+              <div class="dz-sub" data-i18n="dzSub">JPG or PNG. Nothing is stored on our servers.</div>
+              <input type="file" id="fileInput" accept="image/*" hidden />
+            </label>
+            <img id="preview" class="preview" alt="Bill preview" hidden />
+            <button id="readBtn" class="btn btn-primary btn-block" type="button" disabled data-i18n="readBtn">
+              Read this bill
+            </button>
+          </div>
+
+          <div class="tab-panel" id="panel-text">
+            <label class="field-label" for="billText" data-i18n="textLabel">
+              One medicine per line: NAME STRENGTH PACK QTY AMOUNT
+            </label>
+            <textarea id="billText" rows="8" spellcheck="false"
+              placeholder="DOLO 650 TAB 15'S 2 96.00&#10;PAN 40 TAB 10'S 1 145.00"></textarea>
+          </div>
+
+          <div class="demo-row">
+            <span class="demo-label" data-i18n="demoLabel">Try a real bill:</span>
+            <button class="chip" data-demo="1" type="button">Fever &amp; infection</button>
+            <button class="chip" data-demo="2" type="button">Diabetes &amp; BP</button>
+            <button class="chip" data-demo="3" type="button">Child fever</button>
+          </div>
+
+          <button id="analyzeBtn" class="btn btn-primary btn-block btn-lg" type="button" data-i18n="analyzeBtn">
+            Analyse my bill
+          </button>
+          <div id="statusMsg" class="status" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="card info-card">
+          <h3 data-i18n="pipeTitle">What happens inside</h3>
+          <ol class="pipeline">
+            <li><strong data-i18n="p1t">1. Normalise</strong><span data-i18n="p1d">“DOLO 650 TAB 15'S” is split into brand, strength, form, pack size and price.</span></li>
+            <li><strong data-i18n="p2t">2. Fuzzy match</strong><span data-i18n="p2d">Trigram + edit-distance search finds candidate salts, even with OCR typos.</span></li>
+            <li><strong data-i18n="p3t">3. Rules check</strong><span data-i18n="p3d">Strength and dosage form must agree, or the match is downgraded.</span></li>
+            <li><strong data-i18n="p4t">4. Price verdict</strong><span data-i18n="p4d">Per-unit price vs NPPA ceiling + 12% GST. Above it = illegal.</span></li>
+            <li><strong data-i18n="p5t">5. Show confidence</strong><span data-i18n="p5d">Every line carries a score. We never pretend to be sure.</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESULTS ================= -->
+  <section class="section results-section" id="results" hidden>
+    <div class="container">
+      <div class="verdict card" id="verdictCard">
+        <div class="verdict-main">
+          <div class="verdict-label" data-i18n="verdictLabel">Verdict</div>
+          <div class="verdict-headline" id="verdictHeadline">—</div>
+          <div class="verdict-sub" id="verdictSub">—</div>
+        </div>
+        <div class="verdict-numbers">
+          <div class="vn">
+            <span class="vn-label" data-i18n="vnPaid">You paid</span>
+            <span class="vn-value" id="vnPaid">₹0</span>
+          </div>
+          <div class="vn">
+            <span class="vn-label" data-i18n="vnOver">Illegally overcharged</span>
+            <span class="vn-value danger" id="vnOver">₹0</span>
+          </div>
+          <div class="vn">
+            <span class="vn-label" data-i18n="vnJa">Jan Aushadhi price</span>
+            <span class="vn-value success" id="vnJa">₹0</span>
+          </div>
+          <div class="vn">
+            <span class="vn-label" data-i18n="vnSave">You could have saved</span>
+            <span class="vn-value success" id="vnSave">₹0</span>
+          </div>
+        </div>
+        <div class="verdict-actions">
+          <button id="speakBtn" class="btn btn-outline" type="button" data-i18n="speakBtn">🔊 Read aloud</button>
+          <button id="letterBtn" class="btn btn-danger" type="button" data-i18n="letterBtn">📄 Draft NPPA complaint</button>
+          <button id="cardBtn" class="btn btn-outline" type="button" data-i18n="cardBtn">📤 Savings card</button>
+        </div>
+      </div>
+
+      <h3 class="block-title" data-i18n="lineTitle">Line-by-line breakdown</h3>
+      <div id="itemList" class="item-list"></div>
+
+      <div class="two-col">
+        <div class="card">
+          <h3 data-i18n="kendraTitle">Nearest Jan Aushadhi Kendras</h3>
+          <p class="muted" data-i18n="kendraSub">Same salt, same strength, 50–80% cheaper.</p>
+          <div class="kendra-controls">
+            <select id="citySelect" aria-label="Choose city"></select>
+            <button id="geoBtn" class="btn btn-outline" type="button" data-i18n="geoBtn">📍 Use my location</button>
+          </div>
+          <div id="kendraMap" class="map"></div>
+          <ul id="kendraList" class="kendra-list"></ul>
+        </div>
+
+        <div class="card">
+          <h3 data-i18n="letterTitle">Your complaint letter</h3>
+          <p class="muted" data-i18n="letterSub">Auto-filled from your bill. Download as PDF and send it.</p>
+          <div class="form-grid">
+            <input id="cName" type="text" placeholder="Your name" />
+            <input id="cPhone" type="text" placeholder="Phone number" />
+            <input id="cPharmacy" type="text" placeholder="Pharmacy name" />
+            <input id="cCity" type="text" placeholder="City / district" />
+            <input id="cBillNo" type="text" placeholder="Bill number" />
+            <input id="cDate" type="date" />
+          </div>
+          <pre id="letterPreview" class="letter-preview" data-i18n="letterEmpty">Analyse a bill to generate your complaint letter.</pre>
+          <button id="downloadPdf" class="btn btn-primary btn-block" type="button" data-i18n="pdfBtn">⬇️ Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW ================= -->
+  <section class="section alt" id="how">
+    <div class="container">
+      <h2 class="section-title" data-i18n="howTitle">Why this matters</h2>
+      <div class="why-grid">
+        <div class="card why">
+          <div class="why-num">39%</div>
+          <p data-i18n="why1">of India's total health spending still comes straight out of people's pockets (NHA 2021–22 estimates), and medicines are the single largest slice.</p>
+        </div>
+        <div class="card why">
+          <div class="why-num">900+</div>
+          <p data-i18n="why2">essential drug formulations have a legally binding ceiling price under the DPCO. Charging more is an offence — but almost no patient can check.</p>
+        </div>
+        <div class="card why">
+          <div class="why-num">18,000+</div>
+          <p data-i18n="why3">Jan Aushadhi Kendras sell the identical molecule for 50–80% less. Most people standing at a chemist counter have never been told.</p>
+        </div>
+      </div>
+      <p class="disclaimer" data-i18n="disclaimer">
+        DawaCheck is an informational tool built on public data. Prices in this demo are a seed dataset
+        modelled on published NPPA and PMBI lists and may be out of date. Always verify against the
+        official NPPA ceiling price list before filing a formal complaint. This is not legal or medical advice.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= HEATMAP ================= -->
+  <section class="section" id="heatmap">
+    <div class="container">
+      <h2 class="section-title" data-i18n="hmTitle">India's overcharge heatmap</h2>
+      <p class="section-sub" data-i18n="hmSub">
+        Every scan adds one anonymous data point. Together they become the first crowdsourced
+        map of medicine overcharging — the kind of dataset regulators and journalists cannot currently buy.
+      </p>
+      <div id="heatMap" class="map map-large"></div>
+      <div class="legend">
+        <span><i class="dot low"></i> <span data-i18n="lgLow">Under 20% average overcharge</span></span>
+        <span><i class="dot mid"></i> <span data-i18n="lgMid">20–30%</span></span>
+        <span><i class="dot high"></i> <span data-i18n="lgHigh">Above 30%</span></span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>DawaCheck</strong>
+        <p class="muted" data-i18n="footTag">Making public drug-price data usable at the pharmacy counter.</p>
+      </div>
+      <p class="muted small" data-i18n="footNote">Built for Hack Devengers 1.0 · Data: NPPA (DPCO) &amp; PMBI Jan Aushadhi</p>
+    </div>
+  </footer>
+
+  <canvas id="shareCanvas" width="1080" height="1080" hidden></canvas>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

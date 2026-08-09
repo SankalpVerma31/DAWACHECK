@@ -1,0 +1,20 @@
+{
+  "kendras": [
+    { "id": "JAK-1001", "name": "Jan Aushadhi Kendra - Karol Bagh", "address": "12/4 Ajmal Khan Road, Karol Bagh, New Delhi 110005", "city": "New Delhi", "state": "Delhi", "phone": "011-25752200", "lat": 28.6519, "lng": 77.1909 },
+    { "id": "JAK-1002", "name": "Jan Aushadhi Kendra - AIIMS Gate 2", "address": "Ansari Nagar East, New Delhi 110029", "city": "New Delhi", "state": "Delhi", "phone": "011-26588500", "lat": 28.5672, "lng": 77.2100 },
+    { "id": "JAK-1003", "name": "Jan Aushadhi Kendra - Lajpat Nagar", "address": "Central Market, Lajpat Nagar II, New Delhi 110024", "city": "New Delhi", "state": "Delhi", "phone": "011-29832211", "lat": 28.5677, "lng": 77.2433 },
+    { "id": "JAK-2001", "name": "Jan Aushadhi Kendra - Andheri West", "address": "SV Road, Andheri West, Mumbai 400058", "city": "Mumbai", "state": "Maharashtra", "phone": "022-26761122", "lat": 19.1364, "lng": 72.8296 },
+    { "id": "JAK-2002", "name": "Jan Aushadhi Kendra - Dadar TT", "address": "Near Dadar TT Circle, Mumbai 400014", "city": "Mumbai", "state": "Maharashtra", "phone": "022-24127788", "lat": 19.0186, "lng": 72.8435 },
+    { "id": "JAK-3001", "name": "Jan Aushadhi Kendra - Koramangala", "address": "80 Feet Road, 4th Block, Koramangala, Bengaluru 560034", "city": "Bengaluru", "state": "Karnataka", "phone": "080-25534411", "lat": 12.9345, "lng": 77.6266 },
+    { "id": "JAK-3002", "name": "Jan Aushadhi Kendra - Jayanagar", "address": "11th Main, 4th Block, Jayanagar, Bengaluru 560011", "city": "Bengaluru", "state": "Karnataka", "phone": "080-26543322", "lat": 12.9250, "lng": 77.5938 },
+    { "id": "JAK-4001", "name": "Jan Aushadhi Kendra - T Nagar", "address": "Usman Road, T Nagar, Chennai 600017", "city": "Chennai", "state": "Tamil Nadu", "phone": "044-28152233", "lat": 13.0418, "lng": 80.2341 },
+    { "id": "JAK-5001", "name": "Jan Aushadhi Kendra - Salt Lake", "address": "Sector V, Bidhannagar, Kolkata 700091", "city": "Kolkata", "state": "West Bengal", "phone": "033-23571188", "lat": 22.5758, "lng": 88.4348 },
+    { "id": "JAK-6001", "name": "Jan Aushadhi Kendra - Ameerpet", "address": "Sarojini Devi Road, Ameerpet, Hyderabad 500016", "city": "Hyderabad", "state": "Telangana", "phone": "040-23742211", "lat": 17.4374, "lng": 78.4487 },
+    { "id": "JAK-7001", "name": "Jan Aushadhi Kendra - Vijay Nagar", "address": "Scheme No 54, Vijay Nagar, Indore 452010", "city": "Indore", "state": "Madhya Pradesh", "phone": "0731-2554411", "lat": 22.7533, "lng": 75.8937 },
+    { "id": "JAK-8001", "name": "Jan Aushadhi Kendra - Gomti Nagar", "address": "Vibhuti Khand, Gomti Nagar, Lucknow 226010", "city": "Lucknow", "state": "Uttar Pradesh", "phone": "0522-4008811", "lat": 26.8543, "lng": 81.0059 },
+    { "id": "JAK-9001", "name": "Jan Aushadhi Kendra - C Scheme", "address": "Ashok Marg, C Scheme, Jaipur 302001", "city": "Jaipur", "state": "Rajasthan", "phone": "0141-2378811", "lat": 26.9124, "lng": 75.7873 },
+    { "id": "JAK-9002", "name": "Jan Aushadhi Kendra - Navrangpura", "address": "Ashram Road, Navrangpura, Ahmedabad 380009", "city": "Ahmedabad", "state": "Gujarat", "phone": "079-26567711", "lat": 23.0367, "lng": 72.5624 },
+    { "id": "JAK-9003", "name": "Jan Aushadhi Kendra - Shivaji Nagar", "address": "FC Road, Shivaji Nagar, Pune 411005", "city": "Pune", "state": "Maharashtra", "phone": "020-25534422", "lat": 18.5308, "lng": 73.8475 },
+    { "id": "JAK-9004", "name": "Jan Aushadhi Kendra - Patna Junction", "address": "Frazer Road, Patna 800001", "city": "Patna", "state": "Bihar", "phone": "0612-2223311", "lat": 25.6093, "lng": 85.1376 }
+  ]
+}
