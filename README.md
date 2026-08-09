@@ -58,4 +58,4 @@ DawaCheck then:
 | 📤 **Savings Card** | Generate a shareable summary of potential savings |
 | 🗺️ **Overcharge Heatmap** | Anonymous data points can contribute to a public visualization |
 | ⚠️ **Ambiguity Detection** | Uncertain matches are surfaced instead of being silently accepted |
-
+---
