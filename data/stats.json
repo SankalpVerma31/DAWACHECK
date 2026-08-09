@@ -1,8 +1,8 @@
 {
-  "billsScanned": 1,
-  "overchargeDetected": 0,
-  "potentialSavings": 0,
-  "usersHelped": 0,
+  "billsScanned": 453,
+  "overchargeDetected": 11408,
+  "potentialSavings": 9056,
+  "usersHelped": 276,
   "districts": [
     { "name": "New Delhi", "state": "Delhi", "lat": 28.6139, "lng": 77.2090, "reports": 184, "avgOverchargePct": 31 },
     { "name": "Mumbai Suburban", "state": "Maharashtra", "lat": 19.0760, "lng": 72.8777, "reports": 156, "avgOverchargePct": 27 },
